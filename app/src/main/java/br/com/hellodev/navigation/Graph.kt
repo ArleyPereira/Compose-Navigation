@@ -31,8 +31,10 @@ fun MyGraph(navController: NavHostController, startDestination: String) {
             arguments = listOf(navArgument("user") { nullable = true })
         ) { navBackStackEntry ->
             val user = navBackStackEntry.arguments?.getString("user")?.fromJson<User>()
+            val backResult = navBackStackEntry.savedStateHandle.get<String>("back_result")
             FriendsListScreen(
                 user = user,
+                backResult = backResult,
                 navigateToSearchScreen = {
                     navController.navigate("search_screen")
                 },
@@ -44,7 +46,10 @@ fun MyGraph(navController: NavHostController, startDestination: String) {
 
         composable(route = "search_screen") {
             SearchScreen(
-                onBackPressed = {
+                onBackPressed = { result ->
+                    navController.previousBackStackEntry
+                        ?.savedStateHandle
+                        ?.set("back_result", result)
                     navController.popBackStack()
                 }
             )
