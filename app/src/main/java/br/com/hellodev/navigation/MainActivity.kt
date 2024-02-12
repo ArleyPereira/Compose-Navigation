@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+                    MyGraph(navController, startDestination = "friends_list_screen")
                 }
             }
         }
