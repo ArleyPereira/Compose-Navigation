@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun FriendsListScreen(
+    userId: String,
     navigateToSearchScreen: () -> Unit,
     onBackPressed: () -> Unit
 ) {
@@ -20,7 +21,7 @@ fun FriendsListScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "FriendsListScreen")
+        Text(text = "FriendsListScreen / UserId: $userId")
 
         Button(onClick = { navigateToSearchScreen() }) {
             Text(text = "Navigate To SearchScreen")

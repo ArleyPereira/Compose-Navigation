@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun HomeScreen(
-    navigateToFriendsListScreen: () -> Unit,
+    navigateToFriendsListScreen: (Int) -> Unit,
     onBackPressed: () -> Unit
 ) {
     Column(
@@ -22,7 +22,7 @@ fun HomeScreen(
     ) {
         Text(text = "HomeScreen")
 
-        Button(onClick = { navigateToFriendsListScreen() }) {
+        Button(onClick = { navigateToFriendsListScreen(5) }) {
             Text(text = "Navigate To Friends ListScreen")
         }
 

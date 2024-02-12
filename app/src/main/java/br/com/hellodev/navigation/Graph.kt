@@ -2,8 +2,10 @@ package br.com.hellodev.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import br.com.hellodev.navigation.screens.FriendsListScreen
 import br.com.hellodev.navigation.screens.HomeScreen
 import br.com.hellodev.navigation.screens.SearchScreen
@@ -13,8 +15,8 @@ fun MyGraph(navController: NavHostController, startDestination: String) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = "home_screen") {
             HomeScreen(
-                navigateToFriendsListScreen = {
-                    navController.navigate("friends_list_screen")
+                navigateToFriendsListScreen = { userId ->
+                    navController.navigate("friends_list_screen/$userId")
                 },
                 onBackPressed = {
                     navController.popBackStack()
@@ -22,8 +24,13 @@ fun MyGraph(navController: NavHostController, startDestination: String) {
             )
         }
 
-        composable(route = "friends_list_screen") {
+        composable(
+            route = "friends_list_screen/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+        ) { navBackStackEntry ->
+            val userId = navBackStackEntry.arguments?.getString("userId") ?: "0"
             FriendsListScreen(
+                userId = userId,
                 navigateToSearchScreen = {
                     navController.navigate("search_screen")
                 },
