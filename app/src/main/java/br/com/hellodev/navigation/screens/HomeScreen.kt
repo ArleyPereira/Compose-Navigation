@@ -12,7 +12,7 @@ import br.com.hellodev.navigation.User
 
 @Composable
 fun HomeScreen(
-    navigateToFriendsListScreen: (User) -> Unit,
+    navigateToFriendsListScreen: (User?) -> Unit,
     onBackPressed: () -> Unit
 ) {
     Column(
