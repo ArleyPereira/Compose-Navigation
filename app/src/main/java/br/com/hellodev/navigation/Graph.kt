@@ -9,14 +9,17 @@ import androidx.navigation.navArgument
 import br.com.hellodev.navigation.screens.FriendsListScreen
 import br.com.hellodev.navigation.screens.HomeScreen
 import br.com.hellodev.navigation.screens.SearchScreen
+import br.com.hellodev.navigation.util.fromJson
+import br.com.hellodev.navigation.util.toJson
 
 @Composable
 fun MyGraph(navController: NavHostController, startDestination: String) {
+
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = "home_screen") {
             HomeScreen(
-                navigateToFriendsListScreen = { userId ->
-                    navController.navigate("friends_list_screen/$userId")
+                navigateToFriendsListScreen = { user ->
+                    navController.navigate("friends_list_screen/${user.toJson()}")
                 },
                 onBackPressed = {
                     navController.popBackStack()
@@ -25,12 +28,12 @@ fun MyGraph(navController: NavHostController, startDestination: String) {
         }
 
         composable(
-            route = "friends_list_screen/{userId}",
-            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+            route = "friends_list_screen/{user}",
+            arguments = listOf(navArgument("user") { type = NavType.StringType })
         ) { navBackStackEntry ->
-            val userId = navBackStackEntry.arguments?.getString("userId") ?: "0"
+            val user = navBackStackEntry.arguments?.getString("user")?.fromJson<User>()
             FriendsListScreen(
-                userId = userId,
+                user = user,
                 navigateToSearchScreen = {
                     navController.navigate("search_screen")
                 },

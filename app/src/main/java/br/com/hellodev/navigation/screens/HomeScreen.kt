@@ -8,10 +8,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import br.com.hellodev.navigation.User
 
 @Composable
 fun HomeScreen(
-    navigateToFriendsListScreen: (Int) -> Unit,
+    navigateToFriendsListScreen: (User) -> Unit,
     onBackPressed: () -> Unit
 ) {
     Column(
@@ -22,7 +23,7 @@ fun HomeScreen(
     ) {
         Text(text = "HomeScreen")
 
-        Button(onClick = { navigateToFriendsListScreen(5) }) {
+        Button(onClick = { navigateToFriendsListScreen(User(1, "Arley Santana")) }) {
             Text(text = "Navigate To Friends ListScreen")
         }
 
